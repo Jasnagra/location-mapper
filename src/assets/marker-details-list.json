@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "id": "123",
+      "address": "215 Emily St, MountainView, CA",
+      "description": "Single family house with modern design",
+      "price": "$ 3,889,000",
+      "type": "building",
+      "bed": "5",
+      "bath": "4.5",
+      "size": "300",
+      "position": {
+        "lat": 53.486,
+        "lng": -2.229
+      }
+    }, {
+      "id": "1234",
+      "address": "108 Squirrel Ln, Menlo Park, CA",
+      "description": "Townhouse with friendly neighbors",
+      "price": "$ 3,050,000",
+      "type": "warehouse",
+      "bed": "4",
+      "bath": "3",
+      "size": "200",
+      "position": {
+        "lat": 52.486,
+        "lng": -1.229
+      }
+    }
+  ]
+}

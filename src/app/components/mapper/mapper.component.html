@@ -1,0 +1,9 @@
+<!-- google-maps-demo.component.html -->
+<google-map 
+  height="400px"
+  width="750px"
+  [options]="mapOptions">
+    @for (marker of markerList; track marker) {
+        <map-advanced-marker [options]="marker" (mapClick)="toggleHighlight(marker)"/>
+    }
+</google-map>
