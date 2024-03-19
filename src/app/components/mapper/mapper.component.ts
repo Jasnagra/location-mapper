@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges, input } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
+import { mapperConfig } from '../../../assets/mapper-config';
 
 @Component({
   selector: 'app-mapper',
@@ -12,11 +13,7 @@ export class MapperComponent {
   @Input() markerDetailsList: any;
 
   markerList: any = [];
-  mapOptions: google.maps.MapOptions = {
-    mapId: '5b9d1aba6a424115',
-    center: { lat: 53.486, lng: -2.229 },
-    zoom: 5
-  }
+  mapOptions: google.maps.MapOptions = mapperConfig.onLoadMapOptions;
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.markerDetailsList && changes.hasOwnProperty('markerDetailsList')) {
@@ -45,32 +42,32 @@ export class MapperComponent {
     });
   }
 
-  private buildMarkerContent(property: any) {
+  private buildMarkerContent(markerDetails: any) {
     const content = document.createElement("div");
     content.classList.add("property");
     content.innerHTML = `
       <div class="icon">
-          <i aria-hidden="true" class="fa fa-icon fa-${property.type}" title="${property.type}"></i>
-          <span class="fa-sr-only">${property.type}</span>
+          <i aria-hidden="true" class="fa fa-icon fa-${markerDetails.type}" title="${markerDetails.type}"></i>
+          <span class="fa-sr-only">${markerDetails.type}</span>
       </div>
       <div class="details">
-          <div class="price">${property.price}</div>
-          <div class="address">${property.address}</div>
+          <div class="price">${markerDetails.price}</div>
+          <div class="address">${markerDetails.address}</div>
           <div class="features">
           <div>
               <i aria-hidden="true" class="fa fa-bed fa-lg bed" title="bedroom"></i>
               <span class="fa-sr-only">bedroom</span>
-              <span>${property.bed}</span>
+              <span>${markerDetails.bed}</span>
           </div>
           <div>
               <i aria-hidden="true" class="fa fa-bath fa-lg bath" title="bathroom"></i>
               <span class="fa-sr-only">bathroom</span>
-              <span>${property.bath}</span>
+              <span>${markerDetails.bath}</span>
           </div>
           <div>
               <i aria-hidden="true" class="fa fa-ruler fa-lg size" title="size"></i>
               <span class="fa-sr-only">size</span>
-              <span>${property.size} ft<sup>2</sup></span>
+              <span>${markerDetails.size} ft<sup>2</sup></span>
           </div>
           </div>
       </div>
