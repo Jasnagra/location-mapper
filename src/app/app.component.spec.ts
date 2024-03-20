@@ -5,6 +5,7 @@ import { MapperComponent } from './components/mapper/mapper.component';
 import { MarkerDetailsComponent } from './components/marker-details/marker-details.component';
 import { CommonModule } from '@angular/common';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   let mockMarkerService = jasmine.createSpyObj('MarkerService', ['getMarkerDetailsList']);
@@ -14,6 +15,7 @@ describe('AppComponent', () => {
       imports: [AppComponent, MapperComponent, MarkerDetailsComponent, CommonModule, GoogleMap, MapAdvancedMarker],
       providers: [ { provide: MarkerService, useValue: mockMarkerService } ],
     }).compileComponents();
+    mockMarkerService.getMarkerDetailsList.and.returnValue(of({}));
   });
 
   it('should create the app', () => {

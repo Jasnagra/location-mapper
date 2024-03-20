@@ -1,9 +1,12 @@
 <!-- google-maps-demo.component.html -->
-<google-map 
-  height="400px"
-  width="750px"
-  [options]="mapOptions">
-    @for (marker of markerList; track marker) {
-        <map-advanced-marker [options]="marker" (mapClick)="toggleHighlight(marker)"/>
-    }
-</google-map>
+<div id="map" *ngIf="markerDetailsList">
+  <google-map
+    [height]="mapperConfig.mapSize.height"
+    [width]="mapperConfig.mapSize.width"
+    [options]="mapOptions"
+    (mapInitialized)="mapInitialized($event)">
+      @for (marker of markerList; track marker) {
+          <map-advanced-marker [options]="marker" (mapClick)="toggleHighlight(marker)"/>
+      }
+  </google-map>
+</div>

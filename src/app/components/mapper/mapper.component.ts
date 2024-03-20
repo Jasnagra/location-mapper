@@ -1,23 +1,39 @@
-import { Component, Input, SimpleChanges, input } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
-import { mapperConfig } from '../../../assets/mapper-config';
+import { MapperConfig } from '../../../assets/mapper-config';
+import { CommonModule } from '@angular/common';
+import { MapUtils } from '../../utils/map-utils';
 
 @Component({
   selector: 'app-mapper',
   standalone: true,
-  imports: [GoogleMap, MapAdvancedMarker],
+  imports: [GoogleMap, MapAdvancedMarker, CommonModule],
   templateUrl: './mapper.component.html',
   styleUrl: './mapper.component.scss'
 })
 export class MapperComponent {
   @Input() markerDetailsList: any;
 
+  // define angular google component using @ViewChild decorator 
+  @ViewChild(GoogleMap) googleMap: GoogleMap | undefined;
+  bounds: any;
   markerList: any = [];
-  mapOptions: google.maps.MapOptions = mapperConfig.onLoadMapOptions;
+  mapOptions: google.maps.MapOptions = {};
+  mapperConfig = MapperConfig;
+
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.markerDetailsList && changes.hasOwnProperty('markerDetailsList')) {
-      this.buildMarkerList(this.markerDetailsList.data);
+      this.mapOptions = this.mapperConfig.onLoadMapOptions;
+      this.buildMarkerList(this.markerDetailsList.data);  
+    }
+  }
+
+  mapInitialized(evt: any) {
+    if(this.markerList.length && this.mapperConfig.fitMapToMarkers) {
+      this.bounds = MapUtils.getBounds(this.markerList);
+      this.googleMap?.fitBounds(this.bounds, {top:95,right:30,left:30});  
     }
   }
 

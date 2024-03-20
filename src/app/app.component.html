@@ -1,8 +1,6 @@
 <div>
-  <div id="map">
+  <div [ngStyle]="{'height': [mapperConfig.mapSize.height], 'width': [mapperConfig.mapSize.width]}" >
     <app-mapper [markerDetailsList]="_markerDetailsList | async"></app-mapper>
   </div>
-  <div id="marker-details">
-    <app-marker-details></app-marker-details>
-  </div>
+  <app-marker-details></app-marker-details>
 </div>

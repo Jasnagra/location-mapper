@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapperComponent } from './mapper.component';
 import { SimpleChange } from '@angular/core';
+import { MapUtils } from '../../utils/map-utils';
 
 describe('MapperComponent', () => {
   let component: MapperComponent;
@@ -71,5 +72,13 @@ describe('MapperComponent', () => {
     component.markerList = [];
     component['buildMarkerList']([mockMarkerDetailsObj]);
     expect(component.markerList.length).toBe(1);
+  });
+
+  it('should should fit map around markers', () => {
+    const spy = spyOn(MapUtils, 'getBounds');
+    component.markerList = [{ item: 1}];
+    component.mapperConfig.fitMapToMarkers = true;
+    component.mapInitialized({someEvent: true});
+    expect(spy).toHaveBeenCalled();
   });
 });
